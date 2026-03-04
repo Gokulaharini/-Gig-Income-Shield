@@ -1,48 +1,55 @@
-Problem Statement :
-Grocery and Q-commerce delivery partners face income loss when external disruptions such as extreme weather or local restrictions prevent them from working. Currently, there is no short-term income protection for such losses.
+# Gig Income Shield – AI-Powered Weekly Income Protection for Delivery Partners
 
-Target Persona :
-Persona: Grocery / Q-Commerce Delivery Partner
-Platforms: Zepto, Blinkit, Swiggy Instamart
-Work Pattern: Outdoor delivery, weekly income cycle
+## Problem Statement
+Grocery and Q-commerce delivery partners face frequent income loss when external disruptions such as extreme weather or local restrictions prevent them from working. These losses directly affect their weekly earnings, and there is currently no short-term income protection available for such situations.
 
-Covered Risk (Loss of Income Only) :
-This solution covers loss of income due to lost working hours caused by external disruptions.
-It strictly excludes health insurance, accident coverage, and vehicle repair costs.
+## Target Persona
+**Persona:** Grocery / Q-Commerce Delivery Partner  
+**Platforms:** Zepto, Blinkit, Swiggy Instamart  
+**Work Pattern:** Outdoor deliveries with a weekly earnings cycle
 
-Parametric Triggers :
-Claims are automatically triggered when one or more of the following conditions are met:
-Heavy Rain: Rainfall above 20 mm/hour
-Extreme Heat: Temperature above 45°C
-Local Curfew or Zone Closure: Government or administrative restriction
+## Coverage Scope
+This platform provides insurance coverage for **loss of income due to lost working hours** caused by external disruptions.  
+The solution strictly excludes coverage for health, accidents, life insurance, or vehicle repairs.
 
-Weekly Pricing Model :
-Average weekly income: ₹4,500–₹5,000
-Weekly premium: ₹49 – ₹69 per week
-Pricing is dynamically adjusted using AI based on:
-Location risk
-Historical weather data
-Past claim frequency
+## Parametric Triggers
+Claims are automatically triggered when predefined external conditions are met:
+- **Heavy Rain:** Rainfall exceeding 20 mm/hour  
+- **Extreme Heat:** Temperature exceeding 45°C  
+- **Local Curfew or Zone Closure:** Government or administrative restrictions  
 
-AI & ML Usage :
-Dynamic premium calculation using risk prediction
-Fraud detection through location validation and anomaly detection
-Predictive analytics for likely disruptions
+These triggers are monitored in real time using external data sources.
 
-Claim & Payout Flow :
-Real-time monitoring of external data
-Automatic claim initiation when trigger conditions are met
-Instant payout for lost income via digital payment channels (simulated)
+## Weekly Pricing Model
+The insurance operates on a **weekly premium model** aligned with gig workers’ earnings:
+- Average weekly income: ₹4,500 – ₹5,000  
+- Weekly premium range: ₹49 – ₹69  
+- Premiums are dynamically adjusted using AI based on:
+  - Delivery zone risk
+  - Historical weather patterns
+  - Past claim frequency
 
-Platform Choice :
-A web-based platform is chosen for fast onboarding, easy access, and seamless demo capability.
+## AI & ML Integration
+Artificial Intelligence is used to:
+- Dynamically calculate weekly premiums using risk prediction models  
+- Detect fraudulent or anomalous claims through location and activity validation  
+- Predict high-risk periods based on historical and forecasted disruption data  
 
-Tech Stack (Planned) :
-Frontend: React
-Backend: Node.js / Express
-AI/ML: Python (Scikit-Learn)
-Database: MongoDB / PostgreSQL
-APIs: Weather API (mock/free tier), payment sandbox
+## Claim & Payout Workflow
+- Continuous monitoring of external disruption data  
+- Automatic claim initiation when parametric conditions are met  
+- Zero-touch claim approval  
+- Instant payout of lost income via digital payment systems (simulated)
 
-Phase-1 Scope :
-Phase-1 focuses on ideation, architecture, and workflow design. Functional automation and AI models will be implemented in later phases.
+## Platform Choice
+A **web-based platform** is chosen for faster onboarding, easy accessibility across devices, and smooth demonstration during the hackathon.
+
+## Planned Tech Stack
+- **Frontend:** React  
+- **Backend:** Node.js with Express  
+- **AI/ML:** Python (Scikit-learn)  
+- **Database:** MongoDB / PostgreSQL  
+- **APIs:** Weather API (free tier or mock), payment gateway sandbox  
+
+## Phase-1 Scope
+Phase-1 focuses on ideation, system design, workflow definition, and risk modeling. Full automation, AI models, fraud detection, and payout simulations will be implemented in subsequent phases.
