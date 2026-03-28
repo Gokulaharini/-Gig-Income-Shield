@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Gig Insurance</title>
+  <style>
+    body { font-family: Arial; background:#f4f6f9; padding:20px; }
+    .hidden { display:none; }
+    .card {
+      background:white;
+      padding:15px;
+      margin:10px 0;
+      border-radius:10px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+    button {
+      padding:10px;
+      margin:5px;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+    }
+    .btn { background:#007bff; color:white; }
+    .danger { background:#dc3545; color:white; }
+  </style>
+</head>
+<body>
+
+<h2>🚴 AI-Powered Parametric Insurance for Zomato Delivery Partners</h2>
+
+<!-- REGISTER -->
+<div id="register" class="card">
+  <h3>Register</h3>
+  <input id="name" placeholder="Name"><br><br>
+  <input id="phone" placeholder="Phone"><br><br>
+  <input id="city" placeholder="City"><br><br>
+  <input id="income" placeholder="Daily Income"><br><br>
+  <button class="btn" onclick="register()">Register</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="hidden">
+
+  <div class="card">
+    <h3>👤 Rider Profile</h3>
+    <p><b>Name:</b> <span id="dName"></span></p>
+    <p><b>City:</b> <span id="dCity"></span></p>
+    <p><b>Daily Income:</b> ₹<span id="dIncome"></span></p>
+  </div>
+
+  <div class="card">
+    <h3>📊 AI Risk Assessment</h3>
+    <p><b>Weekly Premium:</b> ₹<span id="premium"></span></p>
+    <p><b>Risk Level:</b> <span id="risk"></span></p>
+    <p><b>Risk Score:</b> <span id="riskScore"></span>/100</p>
+    <p><b>AI Prediction:</b> <span id="prediction"></span></p>
+    <p><b>Model Insight:</b> Premium adjusted based on hyper-local risk patterns</p>
+    <p><b>Coverage:</b> ₹1500/week</p>
+    <button class="btn" onclick="activatePolicy()">Activate Policy</button>
+    <p id="policyStatus"></p>
+    <p style="color:green;"><b>Note:</b> Claims work only when policy is active</p>
+  </div>
+
+  <div class="card">
+    <h3>🌍 Simulate Disruption</h3>
+    <button class="danger" onclick="trigger('Heavy Rain')">🌧 Heavy Rain</button>
+    <button class="danger" onclick="trigger('Extreme Heat')">🌡 Extreme Heat</button>
+    <button class="danger" onclick="trigger('Zone Closure')">🚫 Zone Closed</button>
+  </div>
+
+  <div class="card">
+    <h3>💰 Claim Result</h3>
+    <p id="claimResult">No claims yet</p>
+    <p><b>Total Earnings Protected:</b> ₹<span id="total"></span></p>
+  </div>
+
+  <div class="card">
+    <h3>📜 Claim History</h3>
+    <ul id="history"></ul>
+  </div>
+
+</div>
+
+<script>
+
+function register() {
+  let user = {
+    name: document.getElementById("name").value,
+    phone: document.getElementById("phone").value,
+    city: document.getElementById("city").value,
+    income: parseInt(document.getElementById("income").value)
+  };
+
+  // ✅ Input validation
+  if (!user.name || !user.phone || !user.city || isNaN(user.income)) {
+    alert("Please fill all fields correctly");
+    return;
+  }
+
+  localStorage.setItem("user", JSON.stringify(user));
+  localStorage.setItem("history", JSON.stringify([]));
+  localStorage.setItem("total", 0);
+
+  // Clear inputs
+  document.getElementById("name").value = "";
+  document.getElementById("phone").value = "";
+  document.getElementById("city").value = "";
+  document.getElementById("income").value = "";
+
+  showDashboard();
+}
+
+function showDashboard() {
+  let user = JSON.parse(localStorage.getItem("user"));
+
+  document.getElementById("register").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
+
+  document.getElementById("dName").innerText = user.name;
+  document.getElementById("dCity").innerText = user.city;
+  document.getElementById("dIncome").innerText = user.income;
+
+  // AI logic
+  let premium = (user.city.toLowerCase() === "chennai") ? 40 : 30;
+  let riskScore = (premium === 40) ? 78 : 45;
+  let risk = (riskScore > 60) ? "High Risk 🔴" : "Low Risk 🟢";
+  let prediction = (riskScore > 60) ? "High chance of rain 🌧" : "Stable weather ☀";
+
+  localStorage.setItem("premium", premium);
+
+  document.getElementById("premium").innerText = premium;
+  document.getElementById("risk").innerText = risk;
+  document.getElementById("riskScore").innerText = riskScore;
+  document.getElementById("prediction").innerText = prediction;
+
+  document.getElementById("total").innerText = localStorage.getItem("total");
+
+  loadHistory();
+}
+
+function activatePolicy() {
+  localStorage.setItem("policy", "active");
+  document.getElementById("policyStatus").innerText = "Policy Active ✅";
+}
+
+function trigger(type) {
+  let policy = localStorage.getItem("policy");
+
+  if (policy !== "active") {
+    alert("Activate policy first!");
+    return;
+  }
+
+  let user = JSON.parse(localStorage.getItem("user"));
+
+  let hoursLost = 4;
+  let hourlyIncome = user.income / 8;
+  let payout = Math.round(hoursLost * hourlyIncome);
+
+  let time = new Date().toLocaleTimeString();
+
+  let message = `${time} - AI detected ${type} → Auto payout ₹${payout}`;
+
+  // 🔥 AI loading effect
+  document.getElementById("claimResult").innerText = "AI analyzing disruption...";
+
+  setTimeout(() => {
+    document.getElementById("claimResult").innerText = message;
+  }, 800);
+
+  // Update total earnings protected
+  let total = parseInt(localStorage.getItem("total"));
+  total += payout;
+  localStorage.setItem("total", total);
+  document.getElementById("total").innerText = total;
+
+  // Save history
+  let history = JSON.parse(localStorage.getItem("history"));
+  history.push(message);
+  localStorage.setItem("history", JSON.stringify(history));
+
+  loadHistory();
+}
+
+function loadHistory() {
+  let history = JSON.parse(localStorage.getItem("history"));
+  let list = document.getElementById("history");
+  list.innerHTML = "";
+
+  history.forEach(item => {
+    let li = document.createElement("li");
+    li.innerText = item;
+    list.appendChild(li);
+  });
+}
+
+window.onload = () => {
+  if (localStorage.getItem("user")) {
+    showDashboard();
+  }
+};
+
+</script>
+
+</body>
+</html>
