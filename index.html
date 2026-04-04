@@ -72,7 +72,7 @@
   <h3>Register</h3>
   <input id="name" placeholder="Name">
   <input id="city" placeholder="City">
-  <input id="income" placeholder="Daily Income">
+  <input id="income" placeholder="Daily Income (₹)">
   <button class="btn" onclick="register()">Start Weekly Protection</button>
 </div>
 
@@ -105,8 +105,8 @@
 
   <div class="card">
     <h3>💰 Earnings Protection</h3>
-    <p>Total Protected: ₹<span id="total"></span></p>
-    <p>Protection %: <span id="percent"></span>%</p>
+    <p>Total Protected: ₹<span id="total">0</span></p>
+    <p>Protection %: <span id="percent">0</span>%</p>
     <p id="result">No claims yet</p>
   </div>
 
@@ -117,19 +117,21 @@
 <script>
 
 function register(){
-  let user = {
-    name: document.getElementById("name").value,
-    city: document.getElementById("city").value,
-    income: parseInt(document.getElementById("income").value)
-  };
+  let name = document.getElementById("name").value.trim();
+  let city = document.getElementById("city").value.trim();
+  let income = Number(document.getElementById("income").value);
 
-  if(!user.name || !user.city || isNaN(user.income)){
-    alert("Please fill all fields correctly");
+  // VALIDATION FIX
+  if(!name || !city || income <= 0){
+    alert("Please enter valid details");
     return;
   }
 
+  let user = { name, city, income };
+
   localStorage.setItem("user", JSON.stringify(user));
-  localStorage.setItem("total", 0);
+  localStorage.setItem("total", "0");
+  localStorage.removeItem("active");
 
   show();
 }
@@ -144,39 +146,34 @@ function show(){
   document.getElementById("dCity").innerText = u.city;
   document.getElementById("dIncome").innerText = u.income;
 
+  // AI logic
   let score = (u.city.toLowerCase() === "chennai") ? 75 : 45;
   let premium = score > 60 ? 49 : 29;
 
   document.getElementById("score").innerText = score;
   document.getElementById("premium").innerText = premium;
 
-  // Smart Advisory
   document.getElementById("advice").innerText =
     score > 60 ? "⚠ High risk zone. Prefer morning work hours."
                : "✅ Stable zone. Best working hours: 4PM – 9PM.";
 
-  // 🔥 Live Risk Alert (WOW Feature)
   let hour = new Date().getHours();
-  let alertMsg = "";
 
-  if(score > 60 && hour >= 12 && hour <= 18){
-    alertMsg = "⚠ High disruption risk in next few hours. Work early!";
-  } else {
-    alertMsg = "✅ Low disruption expected. Safe working window.";
-  }
-
-  document.getElementById("alertBox").innerText = alertMsg;
+  document.getElementById("alertBox").innerText =
+    (score > 60 && hour >= 12 && hour <= 18)
+    ? "⚠ High disruption risk in next few hours!"
+    : "✅ Safe working window.";
 
   update();
 }
 
 function activate(){
-  localStorage.setItem("active", true);
+  localStorage.setItem("active", "true");
   document.getElementById("status").innerText = "Policy Active ✅";
 }
 
 function trigger(type){
-  if(!localStorage.getItem("active")){
+  if(localStorage.getItem("active") !== "true"){
     alert("Activate policy first");
     return;
   }
@@ -186,26 +183,39 @@ function trigger(type){
   document.getElementById("result").innerText = "AI analyzing disruption...";
 
   setTimeout(() => {
-    let payout = Math.round((u.income / 8) * 4);
+
+    // FIXED CALCULATION
+    let hourly = u.income / 8;
+    let payout = Math.round(hourly * 4);
 
     document.getElementById("result").innerText =
-      type + " detected → ₹" + payout + " credited";
+      `${type} detected → ₹${payout} credited`;
 
-    let total = parseInt(localStorage.getItem("total"));
+    let total = Number(localStorage.getItem("total")) || 0;
     total += payout;
-    localStorage.setItem("total", total);
+
+    localStorage.setItem("total", total.toString());
 
     update();
+
   }, 800);
 }
 
 function update(){
   let u = JSON.parse(localStorage.getItem("user"));
-  let total = parseInt(localStorage.getItem("total"));
+  let total = Number(localStorage.getItem("total")) || 0;
 
   document.getElementById("total").innerText = total;
 
-  let percent = Math.round((total / (u.income * 7)) * 100);
+  // FIX SAFE CALCULATION
+  if(!u || !u.income || u.income === 0){
+    document.getElementById("percent").innerText = "0";
+    return;
+  }
+
+  let weeklyIncome = u.income * 7;
+  let percent = Math.min(100, Math.round((total / weeklyIncome) * 100));
+
   document.getElementById("percent").innerText = percent;
 }
 
