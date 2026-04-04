@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Gig Insurance</title>
-
-  <!-- Google Font -->
+  <title>PulseShield</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #eef2f3, #dfe9f3);
+      background: linear-gradient(to right, #e3f2fd, #ffffff);
       margin: 0;
       padding: 20px;
-    }
-
-    h2 {
-      text-align: center;
-      color: #333;
     }
 
     .container {
@@ -24,7 +17,16 @@
       margin: auto;
     }
 
-    .hidden { display: none; }
+    h2 {
+      text-align: center;
+      color: #0d47a1;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: gray;
+      margin-bottom: 20px;
+    }
 
     .card {
       background: white;
@@ -32,15 +34,10 @@
       margin: 15px 0;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-
-    .card:hover {
-      transform: scale(1.01);
     }
 
     input {
-      width: 90%;
+      width: 95%;
       padding: 10px;
       margin: 8px 0;
       border-radius: 8px;
@@ -48,23 +45,18 @@
     }
 
     button {
-      padding: 10px 15px;
-      margin: 5px;
-      border: none;
+      padding: 10px;
       border-radius: 8px;
+      border: none;
       cursor: pointer;
+      margin: 5px;
       font-weight: bold;
     }
 
-    .btn { background: #007bff; color: white; }
-    .danger { background: #e74c3c; color: white; }
-    .success { background: #2ecc71; color: white; }
+    .btn { background:#1976d2; color:white; }
+    .danger { background:#d32f2f; color:white; }
 
-    .status-active { color: green; font-weight: bold; }
-
-    ul {
-      padding-left: 20px;
-    }
+    .hidden { display:none; }
   </style>
 </head>
 
@@ -72,57 +64,50 @@
 
 <div class="container">
 
-<h2>🚴 AI-Powered Parametric Insurance for Zomato Delivery Partners</h2>
+<h2>⚡ PulseShield</h2>
+<p class="subtitle">AI-powered weekly income protection for delivery partners</p>
 
 <!-- REGISTER -->
 <div id="register" class="card">
   <h3>Register</h3>
-  <input id="name" placeholder="Name"><br>
-  <input id="phone" placeholder="Phone"><br>
-  <input id="city" placeholder="City"><br>
-  <input id="income" placeholder="Daily Income"><br>
-  <button class="btn" onclick="register()">Register</button>
+  <input id="name" placeholder="Name">
+  <input id="city" placeholder="City">
+  <input id="income" placeholder="Daily Income">
+  <button class="btn" onclick="register()">Start Weekly Protection</button>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="hidden">
 
   <div class="card">
-    <h3>👤 Rider Profile</h3>
-    <p><b>Name:</b> <span id="dName"></span></p>
-    <p><b>City:</b> <span id="dCity"></span></p>
-    <p><b>Daily Income:</b> ₹<span id="dIncome"></span></p>
+    <h3>👤 Profile</h3>
+    <p>Name: <span id="dName"></span></p>
+    <p>City: <span id="dCity"></span></p>
+    <p>Daily Income: ₹<span id="dIncome"></span></p>
   </div>
 
   <div class="card">
-    <h3>📊 AI Risk Assessment</h3>
+    <h3>📊 Risk Pulse</h3>
+    <p><b>Pulse Score:</b> <span id="score"></span>/100</p>
     <p><b>Weekly Premium:</b> ₹<span id="premium"></span></p>
-    <p><b>Risk Level:</b> <span id="risk"></span></p>
-    <p><b>Risk Score:</b> <span id="riskScore"></span>/100</p>
-    <p><b>AI Prediction:</b> <span id="prediction"></span></p>
-    <p><b>Model Insight:</b> Premium adjusted using AI-based risk patterns</p>
-    <p><b>Coverage:</b> ₹1500/week</p>
-    <button class="btn" onclick="activatePolicy()">Activate Policy</button>
-    <p id="policyStatus"></p>
-    <p style="color:green;">Claims work only when policy is active</p>
+    <p id="advice"></p>
+    <p id="alertBox" style="font-weight:bold; color:#ff9800;"></p>
+    <button class="btn" onclick="activate()">Start Weekly Protection</button>
+    <p id="status"></p>
   </div>
 
   <div class="card">
     <h3>🌍 Simulate Disruption</h3>
-    <button class="danger" onclick="trigger('Heavy Rain')">🌧 Heavy Rain</button>
-    <button class="danger" onclick="trigger('Extreme Heat')">🌡 Extreme Heat</button>
+    <button class="danger" onclick="trigger('Heavy Rain')">🌧 Rain</button>
+    <button class="danger" onclick="trigger('Extreme Heat')">🌡 Heat</button>
     <button class="danger" onclick="trigger('Zone Closure')">🚫 Zone Closed</button>
   </div>
 
   <div class="card">
-    <h3>💰 Claim Result</h3>
-    <p id="claimResult">No claims yet</p>
-    <p><b>Total Earnings Protected:</b> ₹<span id="total"></span></p>
-  </div>
-
-  <div class="card">
-    <h3>📜 Claim History</h3>
-    <ul id="history"></ul>
+    <h3>💰 Earnings Protection</h3>
+    <p>Total Protected: ₹<span id="total"></span></p>
+    <p>Protection %: <span id="percent"></span>%</p>
+    <p id="result">No claims yet</p>
   </div>
 
 </div>
@@ -131,107 +116,102 @@
 
 <script>
 
-function register() {
+function register(){
   let user = {
     name: document.getElementById("name").value,
-    phone: document.getElementById("phone").value,
     city: document.getElementById("city").value,
     income: parseInt(document.getElementById("income").value)
   };
 
-  if (!user.name || !user.phone || !user.city || isNaN(user.income)) {
+  if(!user.name || !user.city || isNaN(user.income)){
     alert("Please fill all fields correctly");
     return;
   }
 
   localStorage.setItem("user", JSON.stringify(user));
-  localStorage.setItem("history", JSON.stringify([]));
   localStorage.setItem("total", 0);
 
-  showDashboard();
+  show();
 }
 
-function showDashboard() {
-  let user = JSON.parse(localStorage.getItem("user"));
+function show(){
+  let u = JSON.parse(localStorage.getItem("user"));
 
   document.getElementById("register").classList.add("hidden");
   document.getElementById("dashboard").classList.remove("hidden");
 
-  document.getElementById("dName").innerText = user.name;
-  document.getElementById("dCity").innerText = user.city;
-  document.getElementById("dIncome").innerText = user.income;
+  document.getElementById("dName").innerText = u.name;
+  document.getElementById("dCity").innerText = u.city;
+  document.getElementById("dIncome").innerText = u.income;
 
-  let premium = (user.city.toLowerCase() === "chennai") ? 40 : 30;
-  let riskScore = (premium === 40) ? 78 : 45;
-  let risk = (riskScore > 60) ? "High Risk 🔴" : "Low Risk 🟢";
-  let prediction = (riskScore > 60) ? "High chance of rain 🌧" : "Stable weather ☀";
+  let score = (u.city.toLowerCase() === "chennai") ? 75 : 45;
+  let premium = score > 60 ? 49 : 29;
 
-  localStorage.setItem("premium", premium);
-
+  document.getElementById("score").innerText = score;
   document.getElementById("premium").innerText = premium;
-  document.getElementById("risk").innerText = risk;
-  document.getElementById("riskScore").innerText = riskScore;
-  document.getElementById("prediction").innerText = prediction;
-  document.getElementById("total").innerText = localStorage.getItem("total");
 
-  loadHistory();
+  // Smart Advisory
+  document.getElementById("advice").innerText =
+    score > 60 ? "⚠ High risk zone. Prefer morning work hours."
+               : "✅ Stable zone. Best working hours: 4PM – 9PM.";
+
+  // 🔥 Live Risk Alert (WOW Feature)
+  let hour = new Date().getHours();
+  let alertMsg = "";
+
+  if(score > 60 && hour >= 12 && hour <= 18){
+    alertMsg = "⚠ High disruption risk in next few hours. Work early!";
+  } else {
+    alertMsg = "✅ Low disruption expected. Safe working window.";
+  }
+
+  document.getElementById("alertBox").innerText = alertMsg;
+
+  update();
 }
 
-function activatePolicy() {
-  localStorage.setItem("policy", "active");
-  document.getElementById("policyStatus").innerText = "Policy Active ✅";
+function activate(){
+  localStorage.setItem("active", true);
+  document.getElementById("status").innerText = "Policy Active ✅";
 }
 
-function trigger(type) {
-  let policy = localStorage.getItem("policy");
-
-  if (policy !== "active") {
-    alert("Activate policy first!");
+function trigger(type){
+  if(!localStorage.getItem("active")){
+    alert("Activate policy first");
     return;
   }
 
-  let user = JSON.parse(localStorage.getItem("user"));
+  let u = JSON.parse(localStorage.getItem("user"));
 
-  let hoursLost = 4;
-  let hourlyIncome = user.income / 8;
-  let payout = Math.round(hoursLost * hourlyIncome);
-
-  let time = new Date().toLocaleTimeString();
-  let message = `${time} - AI detected ${type} → Auto payout ₹${payout}`;
-
-  document.getElementById("claimResult").innerText = "AI analyzing disruption...";
+  document.getElementById("result").innerText = "AI analyzing disruption...";
 
   setTimeout(() => {
-    document.getElementById("claimResult").innerText = message;
+    let payout = Math.round((u.income / 8) * 4);
+
+    document.getElementById("result").innerText =
+      type + " detected → ₹" + payout + " credited";
+
+    let total = parseInt(localStorage.getItem("total"));
+    total += payout;
+    localStorage.setItem("total", total);
+
+    update();
   }, 800);
-
-  let total = parseInt(localStorage.getItem("total"));
-  total += payout;
-  localStorage.setItem("total", total);
-  document.getElementById("total").innerText = total;
-
-  let history = JSON.parse(localStorage.getItem("history"));
-  history.push(message);
-  localStorage.setItem("history", JSON.stringify(history));
-
-  loadHistory();
 }
 
-function loadHistory() {
-  let history = JSON.parse(localStorage.getItem("history"));
-  let list = document.getElementById("history");
-  list.innerHTML = "";
+function update(){
+  let u = JSON.parse(localStorage.getItem("user"));
+  let total = parseInt(localStorage.getItem("total"));
 
-  history.forEach(item => {
-    let li = document.createElement("li");
-    li.innerText = item;
-    list.appendChild(li);
-  });
+  document.getElementById("total").innerText = total;
+
+  let percent = Math.round((total / (u.income * 7)) * 100);
+  document.getElementById("percent").innerText = percent;
 }
 
 window.onload = () => {
-  if (localStorage.getItem("user")) {
-    showDashboard();
+  if(localStorage.getItem("user")){
+    show();
   }
 };
 
