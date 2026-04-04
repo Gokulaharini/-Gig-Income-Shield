@@ -1,135 +1,158 @@
-# Gig Income Shield: AI-Powered Weekly Income Protection
-
-🚀 Protecting gig delivery partners from income loss due to weather and external disruptions using AI-powered parametric insurance.
-
----
-
-## Problem Statement
-Grocery and Q-commerce delivery partners face frequent income loss when external disruptions such as extreme weather or local restrictions prevent them from working. These losses directly affect their weekly earnings, and there is currently no short-term income protection available for such situations.
+# ⚡ PulseShield  
+### Smart Weekly Income Protection for Delivery Partners
 
 ---
 
-## Target Persona
-**Persona:** Grocery / Q-Commerce Delivery Partner  
-**Platforms:** Zepto, Blinkit, Swiggy Instamart  
-**Work Pattern:** Outdoor deliveries with a weekly earnings cycle  
+## 🚀 Overview  
+PulseShield is a lightweight, AI-inspired parametric insurance platform built to protect gig delivery partners from **income loss caused by external disruptions**.
+
+Instead of traditional claim-based insurance, PulseShield works on **real-time triggers** like weather or zone restrictions and provides **instant, automated payouts** for lost working hours.
 
 ---
 
-## Coverage Scope
-This platform provides insurance coverage for **loss of income due to lost working hours** caused by external disruptions.  
-The solution strictly excludes coverage for health, accidents, life insurance, or vehicle repairs.
+## 📌 The Problem  
+Delivery partners working in quick-commerce platforms often face unpredictable income loss due to:
+
+- Heavy rainfall  
+- Extreme heat conditions  
+- Sudden zone closures or restrictions  
+
+These disruptions directly reduce their working hours and earnings, with **no short-term financial safety net available today**.
 
 ---
 
-## Parametric Triggers
-Claims are automatically triggered when predefined external conditions are met:
-
-- **Heavy Rain:** Rainfall exceeding 20 mm/hour  
-- **Extreme Heat:** Temperature exceeding 45°C  
-- **Local Curfew or Zone Closure:** Government or administrative restrictions  
-
-These triggers are monitored in real time using external data sources.
+## 👤 Target User  
+- **Segment:** Grocery / Q-Commerce Delivery Partner  
+- **Platforms:** Zepto, Blinkit, Swiggy Instamart  
+- **Work Style:** Outdoor, shift-based, weekly income cycle  
 
 ---
 
-## Weekly Pricing Model
-The insurance operates on a **weekly premium model** aligned with gig workers’ earnings:
+## 🛡️ What We Cover  
+PulseShield protects **loss of income due to reduced working hours**.
+
+### ❌ Not Covered:
+- Health or medical insurance  
+- Accidents or injuries  
+- Vehicle repair costs  
+
+---
+
+## ⚡ Parametric Triggers  
+The system automatically triggers claims when these conditions occur:
+
+- 🌧️ **Heavy Rain:** Above threshold rainfall  
+- 🌡️ **Extreme Heat:** Unsafe temperature levels  
+- 🚫 **Zone Closure:** Restricted delivery areas  
+
+No manual claim filing is required.
+
+---
+
+## 💰 Weekly Pricing Model  
+PulseShield uses a **simple weekly subscription model**:
 
 - Average weekly income: ₹4,500 – ₹5,000  
-- Weekly premium range: ₹49 – ₹69  
+- Weekly premium: ₹49 – ₹69  
 
-Premiums are dynamically adjusted using AI based on:
-- Delivery zone risk  
+### 📊 Dynamic Pricing Factors:
+- City-level disruption risk  
 - Historical weather patterns  
-- Past claim frequency  
+- Claim frequency trends  
 
 ---
 
-## AI & ML Integration
-Artificial Intelligence is used to:
+## 🧠 Intelligent System Design  
 
-- Dynamically calculate weekly premiums using risk prediction models  
-- Predict high-risk disruption periods  
-- Detect fraudulent or anomalous claims through location and activity validation  
+### 🔹 Pulse Risk Score  
+Each rider gets a **risk score (0–100)** based on location and conditions.
 
----
+### 🔹 Smart Work Advisory  
+Suggests:
+- Best time slots to work  
+- Risky hours to avoid  
 
-## Claim & Payout Workflow
-- Continuous monitoring of external disruption data  
-- Automatic claim initiation when parametric conditions are met  
-- Zero-touch claim approval  
-- Instant payout of lost income via digital payment systems (simulated)  
+### 🔹 Live Risk Alerts (Unique Feature)  
+Real-time alerts such as:
+- “⚠ High disruption risk in next few hours”  
+- “✅ Safe working window”  
 
----
-
-## Platform Choice
-A **web-based platform** is chosen for faster onboarding, easy accessibility, and smooth demonstration during the hackathon.
-
----
-
-## Planned Tech Stack
-- **Frontend:** React  
-- **Backend:** Node.js with Express  
-- **AI/ML:** Python (Scikit-learn)  
-- **Database:** MongoDB / PostgreSQL  
-- **APIs:** Weather API (free tier or mock), payment gateway sandbox  
+### 🔹 Zero-Touch Claims  
+- Automatic claim detection  
+- Instant payout calculation  
+- No paperwork or manual steps  
 
 ---
 
-## Adversarial Defense & Anti-Spoofing Strategy
+## 🔄 How It Works  
 
-To defend against large-scale fraud such as GPS spoofing and coordinated fake claims, the platform uses a multi-layered AI-driven validation system that goes beyond simple location checks.
-
-### 1. Differentiation: Genuine Worker vs Fraudster
-The system differentiates real users from spoofers using:
-- Consistency of location over time (no sudden unrealistic jumps)  
-- Alignment with historical working zones  
-- Correlation with actual disruption events in that area  
-
----
-
-### 2. Data Signals Used
-Instead of relying only on GPS, the system analyzes:
-
-- Device GPS location  
-- Network/IP-based location  
-- Historical movement patterns  
-- Login activity and session timing  
-- Delivery activity (simulated platform data)  
-- Weather API validation  
-- Claim density in specific areas  
+1. Rider registers basic details  
+2. System calculates risk score & weekly premium  
+3. Policy is activated  
+4. External disruption is detected  
+5. Claim is triggered automatically  
+6. Earnings are credited instantly (simulated)  
 
 ---
 
-### 3. UX Balance (Fairness for Real Users)
-To ensure genuine workers are not affected:
+## 💰 Earnings Protection Tracking  
+The dashboard shows:
 
-- Low-risk claims are processed instantly  
-- Medium-risk claims may be delayed for validation  
-- High-risk claims are flagged, not rejected immediately  
+- Total earnings protected  
+- Percentage of weekly income secured  
 
-The system allows minor inconsistencies during poor network or extreme conditions.
-
----
-
-### 4. Coordinated Fraud Detection
-- Detects sudden spikes in claims from one region  
-- Identifies multiple accounts with similar behavior patterns  
-- Flags suspicious clusters using AI-based risk scoring  
+This helps riders clearly see the value of the system.
 
 ---
 
-### 5. Risk Scoring System
-Each claim is assigned a risk score based on:
-- Location consistency  
-- Behavioral patterns  
-- External data validation  
-- Claim frequency  
+## 🛡️ Fraud Awareness Approach  
 
-Claims are processed based on risk level to balance speed and security.
+To ensure fairness, PulseShield uses basic validation concepts:
+
+- Consistent user activity patterns  
+- Alignment with disruption events  
+- Controlled claim frequency  
+
+Future versions will include:
+- GPS validation  
+- Multi-source location verification  
+- AI-based anomaly detection  
 
 ---
 
-## Phase-1 Scope
-Phase-1 focuses on ideation, system design, workflow definition, and fraud-resistant architecture. Full automation, AI models, and payout simulations will be implemented in subsequent phases.
+## ⚙️ Tech Stack  
+
+- Frontend: HTML, CSS, JavaScript  
+- Storage: LocalStorage (for simulation)  
+- APIs: Mock weather triggers  
+
+---
+
+## 🌐 Platform Choice  
+A web application is used for:
+
+- Quick onboarding  
+- Easy accessibility  
+- Smooth demonstration during evaluation  
+
+---
+
+## 🔮 Future Scope  
+
+- Real-time weather API integration  
+- Advanced fraud detection system  
+- Instant UPI payouts  
+- Mobile application  
+
+---
+
+## 🎯 Impact  
+
+PulseShield acts as a **financial safety net** for gig workers by:
+
+- Reducing income uncertainty  
+- Providing instant compensation  
+- Enabling smarter work planning  
+
+---
+
